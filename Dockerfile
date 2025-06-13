@@ -2,24 +2,18 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy package files
+# Copy package files and prisma schema first (needed for install)
 COPY package*.json ./
+COPY database/prisma ./database/prisma
 
 # Install dependencies
 RUN npm install
 
-# Copy prisma
-COPY database/prisma ./database/prisma
-
-# Generate Prisma client
-RUN npx prisma generate --schema=./database/prisma/schema.prisma
-
-# Copy source code
+# Copy the rest of the source code
 COPY . ./
 
 # Create uploads directory
 RUN mkdir -p ./public/uploads/articles
-RUN mkdir -p public/uploads/articles
 
 # Environment variables
 ENV PORT=3001
