@@ -18,6 +18,7 @@ RUN npx prisma generate --schema=./database/prisma/schema.prisma
 COPY . ./
 
 # Create uploads directory
+RUN mkdir -p ./public/uploads/articles
 RUN mkdir -p public/uploads/articles
 
 # Environment variables
